@@ -1,0 +1,76 @@
+#include <stdio.h>
+void merge(int arr[], int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+    int L[n1], R[n2];
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[l + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = arr[m + 1 + j];
+    int i = 0;
+    int j = 0;
+    int k = l;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+void mergeSort(int arr[], int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2;
+
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+
+        merge(arr, l, m, r);
+    }
+}
+
+int main() {
+    int n1, n2;
+
+    printf("Enter the size of first array: ");
+    scanf("%d", &n1);
+    int arr1[n1];
+    printf("Enter elements of first array: ");
+    for (int i = 0; i < n1; i++)
+        scanf("%d", &arr1[i]);
+
+    printf("Enter the size of second array: ");
+    scanf("%d", &n2);
+    int arr2[n2];
+    printf("Enter elements of second array: ");
+    for (int i = 0; i < n2; i++)
+        scanf("%d", &arr2[i]);
+    int mergedSize = n1 + n2;
+    int merged[mergedSize];
+    int i;
+    for (i = 0; i < n1; i++)
+        merged[i] = arr1[i];
+    for (i = 0; i < n2; i++)
+        merged[n1 + i] = arr2[i];
+    mergeSort(merged, 0, mergedSize - 1);
+    printf("Merged and Sorted array: \n");
+    for (i = 0; i < mergedSize; i++)
+        printf("%d ", merged[i]);
+    printf("\n");
+    return 0;
+}
