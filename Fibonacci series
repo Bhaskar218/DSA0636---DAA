@@ -1,0 +1,40 @@
+#include <stdio.h>
+int fibonacci(int n) {
+    if (n <= 1)
+        return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+int sumEvenFibonacci(int n) {
+    int sum = 0;
+    for (int i = 0; fibonacci(i) <= n; i++) {
+        if (i % 2 == 0)
+            sum += fibonacci(i);
+    }
+    return sum;
+}
+void fibonacciWithEvenSum(int n, int *fibSeries, int *evenSum) {
+    *evenSum = sumEvenFibonacci(n);
+    for (int i = 0; i < n; i++) {
+        fibSeries[i] = fibonacci(i);
+    }
+}
+
+int main() {
+    int n;
+    printf("Enter the number of terms in the Fibonacci series: ");
+    scanf("%d", &n);
+
+    int fibSeries[n];
+    int evenSum;
+
+    fibonacciWithEvenSum(n, fibSeries, &evenSum);
+
+    printf("Fibonacci series: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", fibSeries[i]);
+    }
+
+    printf("\nSum of Fibonacci numbers at even indices: %d\n", evenSum);
+
+    return 0;
+}
