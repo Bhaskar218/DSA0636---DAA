@@ -1,0 +1,37 @@
+#include <stdio.h> 
+#include <stdlib.h> // For abs function
+
+int main() {
+    int num, sum = 0, digit, i = 0;
+    int digits[10]; // Array to store individual digits
+
+    // Input number from user
+    printf("Enter a number: ");
+    scanf("%d", &num);
+
+    // Take the absolute value of the number
+    num = abs(num);
+
+    // Calculate sum of digits and store them in the array
+    while (num != 0) {
+        digit = num % 10;  // Get the last digit
+        sum += digit;      // Add the digit to sum
+        digits[i++] = digit; // Store the digit in the array
+        num /= 10;         // Remove the last digit from the number
+    }
+
+    // Display the sum of digits in the desired format
+    printf("Sum of digits = ");
+    for (int j = i - 1; j >= 0; j--) {
+        printf("%d", digits[j]); // Print the digit
+
+        if (j != 0) {
+            printf("+");
+        } else {
+            printf("=");
+        }
+    }
+    printf("%d\n", sum); // Print the sum
+
+    return 0;
+}
